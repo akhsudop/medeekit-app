@@ -66,7 +66,6 @@ const Home = () => {
       {/* {library} */}
       {searchSection}
       {content}
-      {console.log(content)}
     </section>
   );
 };
