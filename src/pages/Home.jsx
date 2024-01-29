@@ -3,6 +3,7 @@ import { getDrugs } from "../api/drugsApi";
 import { useState } from "react";
 import Drug from "../components/Drug";
 import useDebounce from "../hooks/useDebounce";
+import Grid from "@mui/material/Grid";
 
 import Paper from "@mui/material/Paper";
 import { InputBase, styled } from "@mui/material";
@@ -63,7 +64,9 @@ const Home = () => {
     <section>
       {/* {library} */}
       {searchSection}
-      <div style={{ marginLeft: 50, marginBlock: 50 }}>{content}</div>
+      <Grid container spacing={8} style={{ padding: 50 }}>
+        {content}
+      </Grid>
     </section>
   );
 };
