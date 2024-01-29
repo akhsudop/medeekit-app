@@ -1,5 +1,4 @@
 import { createContext, useReducer, useEffect } from "react";
-import { uniq } from "lodash";
 
 const LOCALSTORAGE_KEY = "myDrugs";
 
