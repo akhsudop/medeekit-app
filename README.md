@@ -15,6 +15,11 @@ I have developed an application that facilitates the management of medications. 
 
 The application employs RxNorm API to search for drug interactions. Due to the intricate process of querying the API from the frontend, which involves first finding the ID of the selected drug in the RxNorm database and then searching for interactions, the code is quite elaborate. Ongoing efforts include connecting a NoSQL database for medications and transferring some queries to the server-side to streamline the application.
 
+## Using app
+
+- **Before npm start** initialize json server by **npx json-server data/db.json**
+- **Warning!** You should have the latest version of json-server installed globally
+
 ## Work in Progress
 
 - **Database Integration:** Currently working on integrating a NoSQL database for medication information.

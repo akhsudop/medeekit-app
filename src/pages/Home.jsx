@@ -25,7 +25,7 @@ const InputBg = styled(Paper)(({ theme }) => ({
 
 const Home = () => {
   const [searchVal, setSearchVal] = useState("");
-  const { state } = useContext(LibraryContext); //DELETE AFTER ALL
+  // const { state } = useContext(LibraryContext); //DELETE AFTER ALL
   const debouncedVal = useDebounce(searchVal, 1000);
   const {
     isLoading,
@@ -54,6 +54,7 @@ const Home = () => {
     content = <p>{error}</p>;
   } else {
     if (drugs) {
+      console.log(drugs);
       content = drugs.map((drug) => {
         return <Drug medicine={drug} key={drug.id} />;
       });
@@ -65,6 +66,7 @@ const Home = () => {
       {/* {library} */}
       {searchSection}
       {content}
+      {console.log(content)}
     </section>
   );
 };
