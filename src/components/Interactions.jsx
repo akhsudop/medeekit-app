@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { LibraryContext } from "../context/LibraryContext";
 import Drug from "./Drug";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { findDrugInteractions, findRxcuiByString } from "../api/nihApi";
 // Need to filter drug list by route of administration. (oral, topical etc)
 

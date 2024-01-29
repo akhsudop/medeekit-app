@@ -1,7 +1,6 @@
 import { useQuery } from "react-query"; /**useQueryClient**/
 import { getDrugs } from "../api/drugsApi";
-import { LibraryContext } from "../context/LibraryContext";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Drug from "../components/Drug";
 import useDebounce from "../hooks/useDebounce";
 
@@ -41,7 +40,7 @@ const Home = () => {
       <InputBase
         placeholder="Search medicine..."
         value={searchVal}
-        onChange={(e) => setSearchVal(e.target.value)} //(e) => setSearchVal(e.target.value)
+        onChange={(e) => setSearchVal(e.target.value)}
         fullWidth
         autoFocus
       />
@@ -64,7 +63,7 @@ const Home = () => {
     <section>
       {/* {library} */}
       {searchSection}
-      {content}
+      <div style={{ marginLeft: 50, marginBlock: 50 }}>{content}</div>
     </section>
   );
 };

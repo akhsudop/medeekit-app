@@ -1,13 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import {
-  AppBar,
-  Box,
-  Button,
-  Toolbar,
-  Typography,
-  styled,
-} from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, styled } from "@mui/material";
 import HealingIcon from "@mui/icons-material/Healing";
 
 const StyledToolbar = styled(Toolbar)({

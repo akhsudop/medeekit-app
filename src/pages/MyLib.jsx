@@ -6,7 +6,7 @@ import Drug from "../components/Drug";
 const MyLib = () => {
   const { state, totalAmount } = useContext(LibraryContext);
   return (
-    <section>
+    <section style={{ marginLeft: 30, marginBottom: 50 }}>
       <h2>Welcome to your First Aid Kit Medications!</h2>
       {totalAmount ? (
         <h4>{totalAmount} medications in your kit.</h4>
@@ -16,13 +16,16 @@ const MyLib = () => {
           <NavLink to="/">here.</NavLink>
         </h4>
       )}
+
       {state.myDrugs.length > 0 &&
         state.myDrugs.map((drug) => {
           return <Drug medicine={drug} key={drug.id} />;
         })}
-      <NavLink to="interactions" replace>
-        Check possible interactions
-      </NavLink>
+      <div>
+        <NavLink to="interactions" replace>
+          Check possible interactions
+        </NavLink>
+      </div>
     </section>
   );
 };
