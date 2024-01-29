@@ -18,7 +18,7 @@ The application employs RxNorm API to search for drug interactions. Due to the i
 ## Using app
 
 - **Before npm start** initialize json server by **npx json-server data/db.json**
-- **Warning!** You should have the latest version of json-server installed globally
+- **Warning!** For the proper finctioning of the query in json-server You need to have 0.17.4 version of the json-server.
 
 ## Work in Progress
 

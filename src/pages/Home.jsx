@@ -54,7 +54,6 @@ const Home = () => {
     content = <p>{error}</p>;
   } else {
     if (drugs) {
-      console.log(drugs);
       content = drugs.map((drug) => {
         return <Drug medicine={drug} key={drug.id} />;
       });
