@@ -49,23 +49,30 @@ const Home = () => {
   );
   let content;
   if (isLoading) {
-    content = <p>Loading...</p>;
+    content = <Grid>Loading...</Grid>;
   } else if (isError) {
-    content = <p>{error}</p>;
+    content = <Grid>{error}</Grid>;
   } else {
-    if (drugs) {
+    if (drugs && drugs.length > 0) {
       content = drugs.map((drug) => {
         return <Drug medicine={drug} key={drug.id} />;
       });
+    } else {
+      content = <Grid>No match found</Grid>;
     }
   }
+
   // const library = JSON.stringify(state);
   return (
     <section>
       {/* {library} */}
       {searchSection}
-      <Grid container spacing={8} style={{ padding: 50 }}>
-        {content}
+      <Grid
+        container
+        spacing={8}
+        style={{ padding: 50, marginTop: 10, justifyContent: "center" }}
+      >
+        {searchVal ? content : ""}
       </Grid>
     </section>
   );

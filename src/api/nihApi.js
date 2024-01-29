@@ -66,8 +66,7 @@ export const findDrugInteractions = async ([rxnormId, comparedRxnormId]) => {
         const response = await nihApi.get(
           `/REST/interaction/interaction.json?rxcui=${id}&sources=DrugBank`
         );
-        // console.log(response.data);
-        // console.log(rxnormId);
+
         isDoubleUsed = id === rxnormId;
         if (isDoubleUsed) {
           return `Attention! At least one substance is duplicated in selected medicines, which may result in an overdose.`;
@@ -82,7 +81,7 @@ export const findDrugInteractions = async ([rxnormId, comparedRxnormId]) => {
         }
       })
     );
-    // console.log(promises);
+
     return promises.flat();
   } else if (
     typeof rxnormId === "object" &&
