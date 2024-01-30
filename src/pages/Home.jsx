@@ -1,10 +1,9 @@
-import { useQuery } from "react-query"; /**useQueryClient**/
+import { useQuery } from "react-query";
 import { getDrugs } from "../api/drugsApi";
 import { useState } from "react";
 import Drug from "../components/Drug";
 import useDebounce from "../hooks/useDebounce";
 import Grid from "@mui/material/Grid";
-
 import Paper from "@mui/material/Paper";
 import { InputBase, styled } from "@mui/material";
 
@@ -25,7 +24,6 @@ const InputBg = styled(Paper)(({ theme }) => ({
 
 const Home = () => {
   const [searchVal, setSearchVal] = useState("");
-  // const { state } = useContext(LibraryContext); //DELETE AFTER ALL
   const debouncedVal = useDebounce(searchVal, 1000);
   const {
     isLoading,
@@ -62,10 +60,8 @@ const Home = () => {
     }
   }
 
-  // const library = JSON.stringify(state);
   return (
     <section>
-      {/* {library} */}
       {searchSection}
       <Grid
         container

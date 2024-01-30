@@ -55,7 +55,6 @@ export const findDrugInteractions = async ([rxnormId, comparedRxnormId]) => {
         }
       })
     );
-    // console.log(promises);
     return promises.flat();
   } else if (
     typeof comparedRxnormId === "object" &&

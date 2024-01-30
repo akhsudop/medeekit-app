@@ -67,8 +67,8 @@ const useLibraryContext = (initState) => {
   const totalAmount = state.myDrugs.length;
 
   const comparedDrugsAmount = state.comparedDrugs.length;
-  // add TOTAL for amount of drugs in LIBRARY; Make a list of active substances to calculate interactions :)
-  return { state, dispatch, totalAmount, comparedDrugsAmount, uniqueDrugPairs }; //Total amount, [active substances]
+
+  return { state, dispatch, totalAmount, comparedDrugsAmount, uniqueDrugPairs };
 };
 
 export const LibraryContext = createContext({

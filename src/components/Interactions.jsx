@@ -3,12 +3,13 @@ import { LibraryContext } from "../context/LibraryContext";
 import Drug from "./Drug";
 import { NavLink } from "react-router-dom";
 import { findDrugInteractions, findRxcuiByString } from "../api/nihApi";
-// Need to filter drug list by route of administration. (oral, topical etc)
+
+// NEXT TO DO: filter drug list by route of administration. (oral, topical etc)
 
 const Interactions = () => {
   const { state, dispatch, uniqueDrugPairs, comparedDrugsAmount } =
     useContext(LibraryContext);
-  const [interaction, setInteraction] = useState([]); // [{[lek1, lek2]: [...interactions]}]
+  const [interaction, setInteraction] = useState([]); // [{[drug1, drug2]: [...interactions]}]
 
   const handleSubmitCheck = (arr) => {
     arr.map(async (comparedArrPair) => {
@@ -18,7 +19,7 @@ const Interactions = () => {
       ]);
 
       if (interactions === undefined && typeof interactions !== "object") {
-        console.log("BRAK INTERAKCJI xd");
+        return null;
       } else if (
         interactions !== undefined &&
         typeof interactions !== "object"
@@ -44,7 +45,7 @@ const Interactions = () => {
         );
         console.log(filteredInteractions);
         filteredInteractions.length === 0
-          ? console.log("BRAK INTERAKCJI xd")
+          ? null
           : setInteraction([
               ...interaction,
               {
@@ -52,17 +53,8 @@ const Interactions = () => {
                 interaction: filteredInteractions,
               },
             ]);
-        // : console.log(
-        //     "interakcja pomiedzy " +
-        //       comparedArrPair[0].name +
-        //       " i " +
-        //       comparedArrPair[1].name +
-        //       ". " +
-        //       filteredInteractions
-        //   );
       } else {
-        // do smth about lack of evidence about interactions
-        console.log("BRAK INTERAKCJI xd");
+        return null;
       }
     });
   };
