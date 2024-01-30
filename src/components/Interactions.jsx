@@ -1,10 +1,38 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { LibraryContext } from "../context/LibraryContext";
 import Drug from "./Drug";
 import { NavLink } from "react-router-dom";
 import { findDrugInteractions, findRxcuiByString } from "../api/nihApi";
+import Button from "@mui/material/Button";
 
-// NEXT TO DO: filter drug list by route of administration. (oral, topical etc)
+const EmptyDrugsList = () => {
+  <>
+    <h2>
+      To check any interactions add medicines you use.{" "}
+      <NavLink to="/">Click here.</NavLink>{" "}
+    </h2>
+  </>;
+};
+const DrugsList = ({ drugs, selectedDrugs, onClick }) => {
+  if (drugs.length === 0) {
+    return <EmptyDrugsList />;
+  }
+
+  return (
+    <>
+      {drugs.map((drug) => {
+        const isSelected =
+          selectedDrugs.filter((selectedDrug) => selectedDrug.id === drug.id)
+            .length > 0;
+        return (
+          <div onClick={() => onClick(drug)}>
+            <Drug isSelected={isSelected} medicine={drug} key={drug.id} />
+          </div>
+        );
+      })}
+    </>
+  );
+};
 
 const Interactions = () => {
   const { state, dispatch, uniqueDrugPairs, comparedDrugsAmount } =
@@ -18,50 +46,28 @@ const Interactions = () => {
         comparedArrPair[1].rxnormId,
       ]);
 
-      if (interactions === undefined && typeof interactions !== "object") {
+      // No interactions found
+      if (interactions === undefined) {
         return null;
-      } else if (
-        interactions !== undefined &&
-        typeof interactions !== "object"
-      ) {
-        setInteraction([
-          ...interaction,
-          {
-            drugPair: [comparedArrPair[0], comparedArrPair[1]],
-            interaction: interactions,
-          },
-        ]);
-        console.log(
-          "interakcja pomiedzy " +
-            comparedArrPair[0].name +
-            " i " +
-            comparedArrPair[1].name +
-            ". " +
-            interactions
-        );
-      } else if (interactions.length > 0 && typeof interactions === "object") {
+      }
+
+      if (interactions.length > 0) {
         const filteredInteractions = interactions.filter(
           (interaction) => interaction !== undefined
         );
-        console.log(filteredInteractions);
-        filteredInteractions.length === 0
-          ? null
-          : setInteraction([
-              ...interaction,
-              {
-                drugPair: [comparedArrPair[0], comparedArrPair[1]],
-                interaction: filteredInteractions,
-              },
-            ]);
-      } else {
-        return null;
+
+        if (filteredInteractions.length > 0) {
+          setInteraction([
+            ...interaction,
+            {
+              drugPair: [comparedArrPair[0], comparedArrPair[1]],
+              interaction: filteredInteractions,
+            },
+          ]);
+        }
       }
     });
   };
-
-  useEffect(() => {
-    console.log(interaction);
-  }, [interaction]);
 
   const handleDrugPicking = (medicine) => {
     findRxcuiByString(medicine.activeSubstances).then((res) => {
@@ -71,41 +77,28 @@ const Interactions = () => {
       });
     });
   };
-  const isPlural =
-    state.comparedDrugs.length > 1 || state.comparedDrugs.length === 0;
-  const isActiveSubmitBtn = state.comparedDrugs.length >= 2;
-  let content;
 
-  content =
-    state.myDrugs.length > 0 ? (
-      state.myDrugs.map((drug) => {
-        return (
-          <div onClick={() => handleDrugPicking(drug)}>
-            <Drug medicine={drug} key={drug.id} />
-          </div>
-        );
-      })
-    ) : (
-      <h2>
-        To check any interactions add medicines you use.{" "}
-        <NavLink to="/">Click here.</NavLink>{" "}
-      </h2>
-    );
   return (
-    <>
+    <div style={{ padding: 32 }}>
       <h1>
         Selected {comparedDrugsAmount}{" "}
-        {isPlural ? <span>drugs</span> : <span>drug</span>}
+        <span>{state.comparedDrugs.length > 1 ? "drugs" : "drug"}</span>
       </h1>
-      {content}
-      <button
-        type="submit"
-        disabled={!isActiveSubmitBtn}
+
+      <DrugsList
+        drugs={state.myDrugs}
+        selectedDrugs={state.comparedDrugs}
+        onClick={handleDrugPicking}
+      />
+
+      <Button
+        variant="contained"
+        disabled={state.comparedDrugs.length < 2}
         onClick={() => handleSubmitCheck(uniqueDrugPairs)}
       >
-        CHECK!
-      </button>
-    </>
+        CHECK
+      </Button>
+    </div>
   );
 };
 

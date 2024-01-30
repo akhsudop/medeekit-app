@@ -1,15 +1,19 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 
-const Result = () => {
-  const { state } = useLocation();
+const Result = ({ interactions }) => {
+  const content = interactions.map((interaction) => {
+    return (
+      <>
+        <h2>Interaction detected:</h2>
+        {interaction.drugPair[0].name + " and " + interaction.drugPair[1].name}
+        {interaction.interaction.map((singleInteraction) => {
+          return <p>{singleInteraction}</p>;
+        })}
+      </>
+    );
+  });
 
-  return (
-    <>
-      {JSON.stringify(state)}
-      <div>Result</div>
-    </>
-  );
+  return { content };
 };
 
 export default Result;
